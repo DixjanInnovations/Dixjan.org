@@ -1,4 +1,4 @@
-# RePairZM — Single-file prototype
+# Dixjan — Single-file prototype
 
 This repository hosts a single-file prototype of RePairZM (index.html). It is a demo static site that stores data in the browser (localStorage) and should be used only for demonstration.
 
