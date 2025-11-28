@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dixjan Innovations | Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #111111;
+      --muted: #666666;
+      --primary: #0067b8;
+      --border: #e6e6e6;
+      --radius: 10px;
+      --shadow: 0 4px 16px rgba(0,0,0,0.08);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); }
+    header {
+      display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; background: #fff; z-index: 50;
+    }
+    .title { font-weight: 700; }
+    .back { padding: 8px 12px; border-radius: 8px; background: var(--primary); color: #fff; font-weight: 600; text-decoration: none; }
+    .container { max-width: 1100px; margin: 20px auto; padding: 0 12px; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 900px){ .grid { grid-template-columns: 1fr; } }
+    .card { border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); background: #fff; }
+    .card h2 { margin: 0; padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 18px; }
+    .card-body { padding: 12px 14px; display: grid; gap: 10px; }
+    label { font-size: 13px; color: var(--muted); }
+    input, select, textarea {
+      width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border); font-size: 14px;
+    }
+    textarea { min-height: 80px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .actions { display: flex; gap: 10px; margin-top: 8px; }
+    .btn { padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border); background: #fff; font-weight: 600; cursor: pointer; }
+    .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .list { display: grid; gap: 10px; }
+    .item {
+      border: 1px solid var(--border); border-radius: 8px; padding: 10px; display: grid; grid-template-columns: 80px 1fr auto; gap: 12px; align-items: center;
+    }
+    .item img { width: 80px; height: 80px; object-fit: cover; border-radius: 6px; background: #f3f3f3; }
+    .item-title { font-weight: 600; }
+    .tag { display: inline-block; padding: 4px 8px; border-radius: 999px; border: 1px solid var(--border); font-size: 12px; }
+    .danger { color: #b00020; }
+    .muted { color: var(--muted); font-size: 13px; }
+    footer { margin: 20px auto; max-width: 1100px; padding: 0 12px 20px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="title">Dixjan Innovations • Admin</div>
+    <a class="back" href="index.html">Go to Store</a>
+  </header>
+
+  <div class="container">
+    <div class="grid">
+      <!-- Hero editor -->
+      <div class="card">
+        <h2>Hero banner</h2>
+        <div class="card-body">
+          <label>Title</label>
+          <input id="heroTitle" placeholder="Hero title" />
+          <label>Subtitle</label>
+          <textarea id="heroSubtitle" placeholder="Hero subtitle"></textarea>
+          <div class="row">
+            <div>
+              <label>Primary button text</label>
+              <input id="heroPrimaryText" placeholder="Shop now" />
+            </div>
+            <div>
+              <label>Secondary button text</label>
+              <input id="heroSecondaryText" placeholder="Learn more" />
+            </div>
+          </div>
+          <label>Hero image URL</label>
+          <input id="heroImage" placeholder="https://..." />
+          <label>Primary button link</label>
+          <input id="heroLink" placeholder="https://..." />
+          <div class="actions">
+            <button class="btn primary" id="saveHero">Save hero</button>
+            <button class="btn" id="resetHero">Reset to default</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Categories editor -->
+      <div class="card">
+        <h2>Categories</h2>
+        <div class="card-body">
+          <label>Add category</label>
+          <div class="row">
+            <input id="newCategoryName" placeholder="e.g., Laptops" />
+            <button class="btn primary" id="addCategory">Add</button>
+          </div>
+          <div class="muted">Tip: “All” is automatically included on the storefront.</div>
+          <div class="list" id="categoryList"></div>
+        </div>
+      </div>
+
+      <!-- Product creator -->
+      <div class="card">
+        <h2>Add product</h2>
+        <div class="card-body">
+          <div class="row">
+            <div>
+              <label>Title</label>
+              <input id="pTitle" />
+            </div>
+            <div>
+              <label>Category</label>
+              <select id="pCategory"></select>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label>Price (USD)</label>
+              <input id="pPrice" type="number" step="0.01" />
+            </div>
+            <div>
+              <label>Tag</label>
+              <input id="pTag" placeholder="New, Deal, Hot..." />
+            </div>
+          </div>
+          <label>Image URL</label>
+          <input id="pImage" placeholder="https://..." />
+          <label>Description</label>
+          <textarea id="pDescription"></textarea>
+          <div class="actions">
+            <button class="btn primary" id="createProduct">Create</button>
+            <button class="btn" id="clearProductForm">Clear</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product manager -->
+      <div class="card">
+        <h2>Manage products</h2>
+        <div class="card-body">
+          <div class="list" id="productList"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Changes are saved to your browser (localStorage). To sync across devices, connect a backend later.
+  </footer>
+
+  <script>
+    const LS_KEYS = {
+      products: 'dixjan_products',
+      categories: 'dixjan_categories',
+      hero: 'dixjan_hero'
+    };
+
+    const defaultHero = {
+      title: 'Discover the latest from Dixjan Innovations',
+      subtitle: 'Premium laptops, accessories, and gaming—curated for your next upgrade.',
+      image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop',
+      primaryText: 'Shop now',
+      secondaryText: 'Learn more',
+      link: '#'
+    };
+
+    // Helpers
+    function getData(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch {
+        return fallback;
+      }
+    }
+    function setData(key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    function cryptoRandomId() {
+      const arr = new Uint32Array(2);
+      if (window.crypto && window.crypto.getRandomValues) {
+        window.crypto.getRandomValues(arr);
+      } else {
+        arr[0] = Math.floor(Math.random()*1e9);
+        arr[1] = Math.floor(Math.random()*1e9);
+      }
+      return 'p_' + arr[0].toString(16) + arr[1].toString(16);
+    }
+
+    // Populate admin UI
+    function loadHeroForm() {
+      const hero = getData(LS_KEYS.hero, defaultHero);
+      document.getElementById('heroTitle').value = hero.title || '';
+      document.getElementById('heroSubtitle').value = hero.subtitle || '';
+      document.getElementById('heroImage').value = hero.image || '';
+      document.getElementById('heroPrimaryText').value = hero.primaryText || '';
+      document.getElementById('heroSecondaryText').value = hero.secondaryText || '';
+      document.getElementById('heroLink').value = hero.link || '';
+    }
+
+    function loadCategories() {
+      const cats = getData(LS_KEYS.categories, ['All','Laptops','Tablets','Accessories','Xbox']).filter(c => c !== 'All');
+      const list = document.getElementById('categoryList');
+      const select = document.getElementById('pCategory');
+      list.innerHTML = '';
+      select.innerHTML = '';
+      cats.forEach(c => {
+        const row = document.createElement('div');
+        row.className = 'item';
+        row.style.gridTemplateColumns = '1fr auto';
+        row.innerHTML = `
+          <div class="item-title">${c}</div>
+          <div class="actions">
+            <button class="btn danger" data-remove="${c}">Remove</button>
+          </div>
+        `;
+        list.appendChild(row);
+
+        const opt = document.createElement('option');
+        opt.value = c; opt.textContent = c;
+        select.appendChild(opt);
+      });
+
+      // Add default option if none
+      if (!cats.length) {
+        const opt = document.createElement('option');
+        opt.value = 'Uncategorized'; opt.textContent = 'Uncategorized';
+        select.appendChild(opt);
+      }
+
+      // Remove handler
+      list.querySelectorAll('[data-remove]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const name = btn.getAttribute('data-remove');
+          const current = getData(LS_KEYS.categories, ['All']).filter(c => c !== 'All');
+          const updated = current.filter(c => c !== name);
+          setData(LS_KEYS.categories, ['All', ...updated]);
+          loadCategories();
+          renderProductsList();
+        });
+      });
+    }
+
+    function renderProductsList() {
+      const products = getData(LS_KEYS.products, []);
+      const container = document.getElementById('productList');
+      container.innerHTML = '';
+      if (!products.length) {
+        container.innerHTML = '<div class="muted">No products yet. Add your first product above.</div>';
+        return;
+      }
+      products.forEach(p => {
+        const el = document.createElement('div');
+        el.className = 'item';
+        el.innerHTML = `
+          <img src="${p.image}" alt="${p.title}">
+          <div>
+            <div class="item-title">${p.title}</div>
+            <div class="muted">${p.category} • $${Number(p.price).toFixed(2)}</div>
+            <div class="tag">${p.tag || 'Featured'}</div>
+          </div>
+          <div class="actions">
+            <button class="btn" data-edit="${p.id}">Edit</button>
+            <button class="btn danger" data-delete="${p.id}">Delete</button>
+          </div>
+        `;
+        container.appendChild(el);
+      });
+
+      // Edit / Delete
+      container.querySelectorAll('[data-delete]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-delete');
+          const products = getData(LS_KEYS.products, []);
+          setData(LS_KEYS.products, products.filter(x => x.id !== id));
+          renderProductsList();
+        });
+      });
+
+      container.querySelectorAll('[data-edit]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-edit');
+          const p = getData(LS_KEYS.products, []).find(x => x.id === id);
+          if (!p) return;
+          document.getElementById('pTitle').value = p.title;
+          document.getElementById('pCategory').value = p.category;
+          document.getElementById('pPrice').value = p.price;
+          document.getElementById('pTag').value = p.tag || '';
+          document.getElementById('pImage').value = p.image;
+          document.getElementById('pDescription').value = p.description || '';
+          document.getElementById('createProduct').setAttribute('data-editing', id);
+          document.getElementById('createProduct').textContent = 'Save changes';
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+    }
+
+    // Actions
+    document.getElementById('saveHero').addEventListener('click', () => {
+      const hero = {
+        title: document.getElementById('heroTitle').value.trim(),
+        subtitle: document.getElementById('heroSubtitle').value.trim(),
+        image: document.getElementById('heroImage').value.trim(),
+        primaryText: document.getElementById('heroPrimaryText').value.trim(),
+        secondaryText: document.getElementById('heroSecondaryText').value.trim(),
+        link: document.getElementById('heroLink').value.trim()
+      };
+      setData(LS_KEYS.hero, hero);
+      alert('Hero saved. Check the storefront.');
+    });
+
+    document.getElementById('resetHero').addEventListener('click', () => {
+      setData(LS_KEYS.hero, defaultHero);
+      loadHeroForm();
+      alert('Hero reset to default.');
+    });
+
+    document.getElementById('addCategory').addEventListener('click', () => {
+      const name = document.getElementById('newCategoryName').value.trim();
+      if (!name) return alert('Enter a category name.');
+      const current = getData(LS_KEYS.categories, ['All']);
+      const set = new Set(current);
+      set.add('All'); // ensure presence
+      set.add(name);
+      setData(LS_KEYS.categories, Array.from(set));
+      document.getElementById('newCategoryName').value = '';
+      loadCategories();
+    });
+
+    document.getElementById('createProduct').addEventListener('click', () => {
+      const editingId = document.getElementById('createProduct').getAttribute('data-editing');
+      const title = document.getElementById('pTitle').value.trim();
+      const category = document.getElementById('pCategory').value.trim();
+      const price = parseFloat(document.getElementById('pPrice').value);
+      const tag = document.getElementById('pTag').value.trim();
+      const image = document.getElementById('pImage').value.trim();
+      const description = document.getElementById('pDescription').value.trim();
+
+      if (!title || !category || !image || isNaN(price)) {
+        return alert('Please fill in title, category, image URL, and a valid price.');
+      }
+
+      const products = getData(LS_KEYS.products, []);
+      if (editingId) {
+        const idx = products.findIndex(p => p.id === editingId);
+        if (idx >= 0) {
+          products[idx] = { ...products[idx], title, category, price, tag, image, description };
+          setData(LS_KEYS.products, products);
+          document.getElementById('createProduct').removeAttribute('data-editing');
+          document.getElementById('createProduct').textContent = 'Create';
+        }
+      } else {
+        products.unshift({ id: cryptoRandomId(), title, category, price, tag, image, description });
+        setData(LS_KEYS.products, products);
+      }
+
+      clearProductForm();
+      renderProductsList();
+      alert(editingId ? 'Product updated.' : 'Product created.');
+    });
+
+    document.getElementById('clearProductForm').addEventListener('click', clearProductForm);
+
+    function clearProductForm() {
+      document.getElementById('pTitle').value = '';
+      document.getElementById('pCategory').selectedIndex = 0;
+      document.getElementById('pPrice').value = '';
+      document.getElementById('pTag').value = '';
+      document.getElementById('pImage').value = '';
+      document.getElementById('pDescription').value = '';
+      document.getElementById('createProduct').removeAttribute('data-editing');
+      document.getElementById('createProduct').textContent = 'Create';
+    }
+
+    // Boot
+    (function init() {
+      loadHeroForm();
+      loadCategories();
+      renderProductsList();
+    })();
+  </script>
+</body>
+</html>
