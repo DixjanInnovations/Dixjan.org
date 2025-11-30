@@ -1,134 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dixjan Innovations | Admin</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dixjan Innovations | Admin Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #ffffff;
-      --text: #111111;
-      --muted: #666666;
-      --primary: #0067b8;
-      --border: #e6e6e6;
-      --radius: 10px;
-      --shadow: 0 4px 16px rgba(0,0,0,0.08);
+      --bg: #f1f6fa;
+      --panel: #ffffff;
+      --primary: #0764b9;
+      --primary-ink: #054e99;
+      --secondary: #01cbe7;
+      --accent: #ffe066;
+      --header: #e1effa;
+      --input: #ecf3fa;
+      --border: #d2e2f3;
+      --border-input: #b1c6d8;
+      --success: #1cb77b;
+      --err: #df3d3d;
+      --muted: #8291a5;
+      --shadow: 0 5px 32px 0 rgba(35,80,125,0.13);
+      --radius: 14px;
     }
-    * { box-sizing: border-box; }
-    body { margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); }
+    html, body {
+      background: var(--bg);
+      margin: 0; padding: 0;
+      font-family: Inter, Arial, sans-serif;
+      color: #18263b;
+    }
     header {
-      display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-bottom: 1px solid var(--border);
-      position: sticky; top: 0; background: #fff; z-index: 50;
+      background: var(--header); border-bottom: 1.5px solid var(--border);
+      padding: 0 4vw; height: 62px;
+      display: flex; align-items: center; justify-content: space-between; gap:18px;
     }
-    .title { font-weight: 700; }
-    .back { padding: 8px 12px; border-radius: 8px; background: var(--primary); color: #fff; font-weight: 600; text-decoration: none; }
-    .container { max-width: 1100px; margin: 20px auto; padding: 0 12px; }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    @media (max-width: 900px){ .grid { grid-template-columns: 1fr; } }
-    .card { border: 1px solid var(--border); border-radius: var(--radius); box-shadow: var(--shadow); background: #fff; }
-    .card h2 { margin: 0; padding: 12px 14px; border-bottom: 1px solid var(--border); font-size: 18px; }
-    .card-body { padding: 12px 14px; display: grid; gap: 10px; }
-    label { font-size: 13px; color: var(--muted); }
-    input, select, textarea {
-      width: 100%; padding: 10px; border-radius: 8px; border: 1px solid var(--border); font-size: 14px;
+    .brand {
+      display: flex; align-items: center; gap: 14px; font-weight: 800; font-size: 1.2em;
+      color: var(--primary-ink);
     }
-    textarea { min-height: 80px; }
-    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .actions { display: flex; gap: 10px; margin-top: 8px; }
-    .btn { padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border); background: #fff; font-weight: 600; cursor: pointer; }
-    .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
-    .list { display: grid; gap: 10px; }
+    .brand-logo {
+      height: 36px; width: 36px; object-fit: cover; border-radius: 9px;
+      background: linear-gradient(135deg,#fff6,#0764b9 94%);
+      box-shadow: 0 2px 9px #b1d6ea55; border: 2px solid var(--border);
+    }
+    .panel-wrap {
+      max-width: 1140px; margin: 32px auto 34px;
+      background: var(--panel); border-radius: var(--radius);
+      box-shadow: var(--shadow); border:1.5px solid #eaf1f8;
+      padding: 30px 3vw 40px 3vw;
+    }
+    @media (max-width: 750px) {
+      .panel-wrap{padding:16px 1vw;}
+      header {flex-direction:column;height:auto;padding:12px 2vw;}
+    }
+    .panel-title {
+      font-size: 1.39em; font-weight: 800; margin-bottom: 28px; margin-top:0;
+      letter-spacing: 1px;
+      color: var(--primary);
+      display: flex; align-items: center; gap:9px;
+    }
+    .sections { display: grid; grid-template-columns: 1fr 1fr; gap: 36px;}
+    @media (max-width: 1050px) { .sections {grid-template-columns: 1fr;} }
+    .card {
+      background: #fafdff; border-radius: var(--radius); box-shadow:0 3px 18px rgba(76,112,168,0.05); border: 1.3px solid #e3f0fa;
+      margin-bottom: 16px; padding: 0 0 6px 0;
+      display: flex; flex-direction: column;
+    }
+    .card-header {
+      padding: 12px 20px; border-bottom: 1px solid #e3f0fa;
+      font-size: 1.14em; font-weight: 700; color: var(--primary-ink);
+      display: flex; align-items: center; gap:10px;
+    }
+    .card-body { padding: 16px 20px 6px 20px; display: flex; flex-direction: column; gap: 13px;}
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px;}
+    @media (max-width:680px){ .form-row{grid-template-columns: 1fr;} .card-body{padding:11px 8vw 6px 8vw;} }
+    label { font-size: 1em; color: var(--muted); margin-top: 8px; }
+    input[type=text], input[type=number], select, textarea {
+      background: var(--input); border-radius: 8px; border: 1.3px solid var(--border-input);
+      padding: 10px; font-size:1em; margin-top: 5px; color: #13386d;
+      width: 100%; font-family: inherit; transition: border .14s;
+    }
+    input[type=file] { margin-top: 9px; }
+    textarea { min-height: 70px; resize: vertical; }
+    input:focus, select:focus, textarea:focus { border-color: var(--primary); outline: none; }
+    .img-upload-row {display:flex; align-items:center; gap:23px; margin:3px 0;}
+    .img-preview {
+      border-radius: 10px; background: #eaf4f8; object-fit: cover;
+      box-shadow: 0 1.5px 7px #c3e9f235; border: 1.1px solid #cbe3fa;
+      width: 72px; height: 72px; min-width:72px;min-height:72px;
+    }
+    .img-preview.logo { width:38px; height:38px; min-width:38px; min-height:38px;border-radius:9px;}
+    .img-preview.hero {width:145px;height:85px;min-width:145px;min-height:85px;}
+    .actions { display: flex; gap: 12px; margin: 18px 0 5px 0;}
+    .btn {
+      padding: 8px 18px; border-radius: 7px; border: 1.2px solid var(--primary); font-weight: 700;
+      background: var(--panel); color: var(--primary-ink); cursor:pointer;
+      font-size: 1em; transition: background .13s, color .13s, border .13s;
+    }
+    .btn.primary { background: var(--primary); color: #fff; border: 1.2px solid var(--primary); }
+    .btn.primary:hover { background: var(--primary-ink);}
+    .btn:active { opacity: 0.85;}
+    .btn.danger { border:1.2px solid var(--err); color:var(--err); background:#fff5f5;}
+    .btn.danger:hover {background:#ffdedd;}
+    /* List of items/categories/products */
+    .list { display: flex; flex-direction: column; gap: 11px;}
     .item {
-      border: 1px solid var(--border); border-radius: 8px; padding: 10px; display: grid; grid-template-columns: 80px 1fr auto; gap: 12px; align-items: center;
+      border: 1.1px solid #e6eef8; border-radius: 9px; padding: 8px 10px; background: #f7fbff;
+      display: grid; grid-template-columns: 45px 1fr auto; gap: 13px; align-items: center;
     }
-    .item img { width: 80px; height: 80px; object-fit: cover; border-radius: 6px; background: #f3f3f3; }
-    .item-title { font-weight: 600; }
-    .tag { display: inline-block; padding: 4px 8px; border-radius: 999px; border: 1px solid var(--border); font-size: 12px; }
-    .danger { color: #b00020; }
-    .muted { color: var(--muted); font-size: 13px; }
-    footer { margin: 20px auto; max-width: 1100px; padding: 0 12px 20px; color: var(--muted); }
+    .item img { width: 45px; height: 45px; object-fit: cover; border-radius: 7px; background: #eff6fa; }
+    .item-title { font-weight: 700; color: #1a2957; }
+    .tag { font-weight: 600; padding: 3.5px 9px; border-radius: 99px; border:1px solid #e3f4fa; color:#3488c0; font-size: 13px; background:#e5f7ff;}
+    .muted { color: var(--muted); font-size: .98em; }
+    .footer { margin:35px 0 18px 0; padding:0 5vw; color: var(--muted); text-align:center;}
+    /* Login overlay */
+    .login-overlay {
+      position: fixed; inset: 0; z-index: 5000;
+      background: rgba(255,255,255,0.99);
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      font-family: inherit;
+    }
+    .login-box {
+      background: #fff; border: 1.5px solid #e3f0fa; border-radius: 16px; box-shadow: 0 8px 30px rgba(35,80,125,0.16);
+      padding: 44px 26px 28px; min-width: 320px; max-width: 97vw; text-align: center;
+    }
+    .login-box input {
+      margin: 11px 0 6px; width: 90%; padding: 10px; font-size: 16px; border-radius: 7px; border: 1.2px solid var(--border-input);
+    }
+    .login-box button {
+      padding: 10px 22px; border-radius: 8px; border: none; font-weight: bold; background: var(--primary); color: #fff; font-size: 16px; margin-top: 7px; cursor:pointer;
+    }
+    .login-msg { color: var(--err); padding: 5px 0 2px; font-size: 15px; }
+    @media (max-width:600px){
+      .sections {gap:13px;}
+      .panel-title {font-size:1em;}
+      .card-header,.card-body {padding:12px 9px;}
+      .item {grid-template-columns: 36px 1fr auto;}
+    }
   </style>
 </head>
 <body>
-  <header>
-    <div class="title">Dixjan Innovations • Admin</div>
-    <a class="back" href="index.html">Go to Store</a>
-  </header>
-
-  <div class="container">
-    <div class="grid">
-      <!-- Hero editor -->
-      <div class="card">
-        <h2>Hero banner</h2>
-        <div class="card-body">
-          <label>Title</label>
-          <input id="heroTitle" placeholder="Hero title" />
-          <label>Subtitle</label>
-          <textarea id="heroSubtitle" placeholder="Hero subtitle"></textarea>
-          <div class="row">
-            <div>
-              <label>Primary button text</label>
-              <input id="heroPrimaryText" placeholder="Shop now" />
-            </div>
-            <div>
-              <label>Secondary button text</label>
-              <input id="heroSecondaryText" placeholder="Learn more" />
-            </div>
-          </div>
-          <label>Hero image URL</label>
-          <input id="heroImage" placeholder="https://..." />
-          <label>Primary button link</label>
-          <input id="heroLink" placeholder="https://..." />
-          <div class="actions">
-            <button class="btn primary" id="saveHero">Save hero</button>
-            <button class="btn" id="resetHero">Reset to default</button>
-          </div>
+<!-- LOGIN MODAL -->
+<div id="loginOverlay" class="login-overlay" style="display:none;">
+  <div class="login-box" id="loginBox">
+    <h2 id="loginTitle"></h2>
+    <div id="loginMsg" class="login-msg"></div>
+    <input id="loginPassword" type="password" placeholder="Enter password" autocomplete="current-password" />
+    <input id="loginPasswordConfirm" type="password" placeholder="Confirm password" autocomplete="new-password" style="display:none;"/>
+    <button id="loginBtn"></button>
+  </div>
+</div>
+<header>
+  <span class="brand">
+    <img id="siteLogoMini" class="brand-logo" src="" alt="Logo preview" />
+    Dixjan Admin Panel
+  </span>
+  <div>
+    <a class="btn" href="index.html">Store Page</a>
+    <button id="logoutBtn" class="btn danger" style="margin-left:12px;display:none;">Log out</button>
+  </div>
+</header>
+<div class="panel-wrap" id="adminContainer" style="display:none;">
+  <div class="panel-title"><svg style="vertical-align:-.17em;" width="21" height="21" viewBox="0 0 20 20"><rect width="9" height="9" x="1" y="1" fill="#0764b9" rx="2"/><rect width="9" height="9" x="10" y="1" fill="#238aea" rx="2"/><rect width="9" height="9" x="1" y="10" fill="#01d6dd" rx="2"/><rect width="9" height="9" x="10" y="10" fill="#f8bc2e" rx="2"/></svg> Website Admin Panel</div>
+  <div class="sections">
+    <!-- LOGO MANAGEMENT -->
+    <div class="card">
+      <div class="card-header">Logo</div>
+      <div class="card-body">
+        <div class="img-upload-row">
+          <img id="siteLogoPreview" class="img-preview logo" src="" alt="Logo preview">
+          <input type="file" id="siteLogoInput" accept="image/*" />
+        </div>
+        <div class="muted" style="font-size:.93em;">Upload your store logo. Shows on the main page instantly!</div>
+        <div class="actions">
+          <button class="btn primary" id="saveLogoBtn">Save Logo</button>
+          <button class="btn" id="resetLogoBtn">Reset Default</button>
         </div>
       </div>
-
-      <!-- Categories editor -->
-      <div class="card">
-        <h2>Categories</h2>
-        <div class="card-body">
-          <label>Add category</label>
-          <div class="row">
-            <input id="newCategoryName" placeholder="e.g., Laptops" />
-            <button class="btn primary" id="addCategory">Add</button>
+    </div>
+    <!-- HERO MANAGEMENT -->
+    <div class="card">
+      <div class="card-header">Hero Banner</div>
+      <div class="card-body">
+        <label>Title</label>
+        <input id="heroTitle" placeholder="Hero title" />
+        <label>Subtitle</label>
+        <textarea id="heroSubtitle" placeholder="Hero subtitle"></textarea>
+        <div class="form-row">
+          <div>
+            <label>Primary button text</label>
+            <input id="heroPrimaryText" placeholder="Shop now" />
           </div>
-          <div class="muted">Tip: “All” is automatically included on the storefront.</div>
-          <div class="list" id="categoryList"></div>
+          <div>
+            <label>Secondary button text</label>
+            <input id="heroSecondaryText" placeholder="Learn more" />
+          </div>
+        </div>
+        <label>Banner Image</label>
+        <div class="img-upload-row">
+          <img id="heroImagePreview" class="img-preview hero" src="" alt="No image selected">
+          <input type="file" id="heroImageInput" accept="image/*" />
+        </div>
+        <label>Primary button link</label>
+        <input id="heroLink" placeholder="https://..." />
+        <div class="actions">
+          <button class="btn primary" id="saveHero">Save Hero</button>
+          <button class="btn" id="resetHero">Reset Default</button>
         </div>
       </div>
-
-      <!-- Product creator -->
+    </div>
+    <!-- CATEGORIES MANAGEMENT -->
+    <div class="card">
+      <div class="card-header">Categories</div>
+      <div class="card-body">
+        <label>Add category</label>
+        <div style="display:flex;gap:10px;">
+          <input id="newCategoryName" placeholder="e.g., Laptops" style="flex:1;">
+          <button class="btn primary" id="addCategory" style="min-width:100px;">Add</button>
+        </div>
+        <div class="muted" style="font-size:.92em;">"All" is always included on the store page.</div>
+        <div class="list" id="categoryList"></div>
+      </div>
+    </div>
+    <!-- PRODUCT MANAGEMENT -->
+    <div>
+      <!-- ADD/EDIT PRODUCT -->
       <div class="card">
-        <h2>Add product</h2>
+        <div class="card-header">Add / Edit Product</div>
         <div class="card-body">
-          <div class="row">
+          <div class="form-row">
             <div>
               <label>Title</label>
-              <input id="pTitle" />
+              <input id="pTitle"/>
             </div>
             <div>
               <label>Category</label>
               <select id="pCategory"></select>
             </div>
           </div>
-          <div class="row">
+          <div class="form-row">
             <div>
               <label>Price (USD)</label>
-              <input id="pPrice" type="number" step="0.01" />
+              <input id="pPrice" type="number" step="0.01"/>
             </div>
             <div>
               <label>Tag</label>
-              <input id="pTag" placeholder="New, Deal, Hot..." />
+              <input id="pTag" placeholder="e.g. New, Deal, Hot"/>
             </div>
           </div>
-          <label>Image URL</label>
-          <input id="pImage" placeholder="https://..." />
+          <label>Image</label>
+          <div class="img-upload-row">
+            <img id="pImagePreview" class="img-preview" src="" alt="No image selected">
+            <input type="file" id="pImageInput" accept="image/*"/>
+          </div>
           <label>Description</label>
           <textarea id="pDescription"></textarea>
           <div class="actions">
@@ -137,252 +261,306 @@
           </div>
         </div>
       </div>
-
-      <!-- Product manager -->
+      <!-- PRODUCTS LIST -->
       <div class="card">
-        <h2>Manage products</h2>
+        <div class="card-header">Manage Products</div>
         <div class="card-body">
           <div class="list" id="productList"></div>
         </div>
       </div>
     </div>
   </div>
-
-  <footer>
-    Changes are saved to your browser (localStorage). To sync across devices, connect a backend later.
-  </footer>
-
-  <script>
-    const LS_KEYS = {
-      products: 'dixjan_products',
-      categories: 'dixjan_categories',
-      hero: 'dixjan_hero'
+</div>
+<div class="footer">
+  Changes are saved to your browser (localStorage). For multi-device save/load, export your data and import on the other device.
+</div>
+<script>
+/* -------- PASSWORD PROTECTION & ADMIN LOGIC -------- */
+const ADMIN_KEY = "dixjan_adminpw";
+const ADMIN_SESSION = "dixjan_adminsessionv1";
+const ADMIN_PW_SALT = "dixjan_store_2024";
+function hashPw(pw) {
+  if(window.crypto && window.crypto.subtle) {
+    return crypto.subtle.digest("SHA-256", new TextEncoder().encode(pw + ADMIN_PW_SALT)).then(buffer=>Array.from(new Uint8Array(buffer)).map(x=>x.toString(16).padStart(2,"0")).join(""));
+  } else { return Promise.resolve(btoa(pw + ADMIN_PW_SALT)); }
+}
+function isAdminLoggedIn() { return localStorage.getItem(ADMIN_SESSION) === "yes"; }
+function showAdmin() {
+  document.getElementById("adminContainer").style.display = "";
+  document.getElementById("logoutBtn").style.display = "";
+  document.getElementById("loginOverlay").style.display = "none";
+}
+function hideAdmin() {
+  document.getElementById("adminContainer").style.display = "none";
+  document.getElementById("logoutBtn").style.display = "none";
+  document.getElementById("loginOverlay").style.display = "";
+}
+async function checkLogin() {
+  if (isAdminLoggedIn()) { showAdmin(); return; }
+  hideAdmin();
+  const hasPw = !!localStorage.getItem(ADMIN_KEY);
+  const title = document.getElementById("loginTitle");
+  const loginMsg = document.getElementById("loginMsg");
+  const loginPw = document.getElementById("loginPassword");
+  const loginPw2 = document.getElementById("loginPasswordConfirm");
+  const btn = document.getElementById("loginBtn");
+  loginPw.value = ""; loginPw2.value = "";
+  loginMsg.textContent = "";
+  if (!hasPw) {
+    title.textContent = "Set Admin Password";
+    loginPw.placeholder = "Create new password"; loginPw2.style.display = ""; btn.textContent = "Set Password";
+    btn.onclick = async function() {
+      if(loginPw.value.length < 4) { loginMsg.textContent = "Password too short."; return; }
+      if(loginPw.value !== loginPw2.value) { loginMsg.textContent = "Passwords do not match."; return; }
+      const hashed = await hashPw(loginPw.value);
+      localStorage.setItem(ADMIN_KEY, hashed); localStorage.setItem(ADMIN_SESSION, "yes"); showAdmin();
     };
-
-    const defaultHero = {
-      title: 'Discover the latest from Dixjan Innovations',
-      subtitle: 'Premium laptops, accessories, and gaming—curated for your next upgrade.',
-      image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?q=80&w=1200&auto=format&fit=crop',
-      primaryText: 'Shop now',
-      secondaryText: 'Learn more',
-      link: '#'
+  } else {
+    title.textContent = "Admin Login";
+    loginPw.placeholder = "Enter password"; loginPw2.style.display = "none"; btn.textContent = "Log In";
+    btn.onclick = async function() {
+      const hashed = await hashPw(loginPw.value);
+      if (hashed === localStorage.getItem(ADMIN_KEY)) {
+        localStorage.setItem(ADMIN_SESSION, "yes"); showAdmin();
+      } else { loginMsg.textContent = "Incorrect password!"; }
     };
+  }
+  document.getElementById("loginOverlay").style.display = "";
+}
+document.getElementById("logoutBtn").onclick = () => { localStorage.removeItem(ADMIN_SESSION); checkLogin(); };
+checkLogin();
 
-    // Helpers
-    function getData(key, fallback) {
-      try {
-        const raw = localStorage.getItem(key);
-        return raw ? JSON.parse(raw) : fallback;
-      } catch {
-        return fallback;
-      }
-    }
-    function setData(key, value) {
-      localStorage.setItem(key, JSON.stringify(value));
-    }
+/* --------- LOGO, HERO, CATEGORY, PRODUCT STATE --------- */
+const LS_KEYS = { logo: "dixjan_logo", products: "dixjan_products", categories: "dixjan_categories", hero: "dixjan_hero" };
+const dataUrlPlaceholder = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJYAAACWCAMAAADbplcFAAAAMFBMVEXMzMz////JycmTk5P7+/vt7e3AwMC/v78dHR3Ozs7Z2dmDg4OcnJy6urrBwcHZ2dnFxcUqKir3iICxAAABNklEQVR4nO3QUQ7CMAwF0XwDJf//4m4lLbROI3pn8vjy5Nhggguu+8MsySCPFrlJB1x9MRWe3Iz4wwIyyNF43yA0FoQGuQGnQGrQGtQGsQGuQGnQGrQGtQGsQGuQGnQGrQGtQGsQGuQGnQGrQGtQGsQGuQGnQGrQGtQGsQGuQGnQGrQxMRnBWIwl6IqotZYkAAAAASUVORK5CYII=";
+function getData(key, fallback) { try{ const raw=localStorage.getItem(key); return raw?JSON.parse(raw):fallback; }catch{return fallback;} }
+function setData(key, value) { localStorage.setItem(key, JSON.stringify(value)); }
+function cryptoRandomId() {
+  const arr = new Uint32Array(2);
+  if (window.crypto && window.crypto.getRandomValues) window.crypto.getRandomValues(arr);
+  else { arr[0] = Math.floor(Math.random()*1e9); arr[1] = Math.floor(Math.random()*1e9); }
+  return 'p_' + arr[0].toString(16) + arr[1].toString(16);
+}
+const defaultLogo = dataUrlPlaceholder;
+const defaultHero = {
+  title: 'Discover the latest from Dixjan Innovations',
+  subtitle: 'Premium laptops, accessories, and gaming—curated for your next upgrade.',
+  image: dataUrlPlaceholder,
+  primaryText: 'Shop now', secondaryText: 'Learn more', link: '#'
+};
+const defaultProducts = [
+  { id: cryptoRandomId(), title: 'Dixjan Laptop 14', category: 'Laptops', price: 899.99, image: dataUrlPlaceholder, description: 'Slim, fast, and ready for work and play.', tag: 'New' },
+  { id: cryptoRandomId(), title: 'Dixjan Pro 2-in-1', category: 'Tablets', price: 1099, image: dataUrlPlaceholder, description: 'Tablet versatility with laptop power.', tag: 'Bestseller' }
+];
+const defaultCategories = ['All', 'Laptops', 'Tablets', 'Accessories', 'Xbox'];
+if (!localStorage.getItem(LS_KEYS.logo)) setData(LS_KEYS.logo, defaultLogo);
+if (!localStorage.getItem(LS_KEYS.products)) setData(LS_KEYS.products, defaultProducts);
+if (!localStorage.getItem(LS_KEYS.categories)) setData(LS_KEYS.categories, defaultCategories);
+if (!localStorage.getItem(LS_KEYS.hero)) setData(LS_KEYS.hero, defaultHero);
 
-    function cryptoRandomId() {
-      const arr = new Uint32Array(2);
-      if (window.crypto && window.crypto.getRandomValues) {
-        window.crypto.getRandomValues(arr);
-      } else {
-        arr[0] = Math.floor(Math.random()*1e9);
-        arr[1] = Math.floor(Math.random()*1e9);
-      }
-      return 'p_' + arr[0].toString(16) + arr[1].toString(16);
-    }
+/* --------- LOGO MANAGEMENT --------- */
+function renderLogo() {
+  const logo = getData(LS_KEYS.logo, defaultLogo);
+  document.getElementById('siteLogoPreview').src = logo;
+  document.getElementById('siteLogoMini').src = logo;
+}
+document.getElementById('siteLogoInput').addEventListener('change', function () {
+  const file = this.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function (e) { document.getElementById('siteLogoPreview').src = e.target.result; };
+  reader.readAsDataURL(file);
+});
+document.getElementById('saveLogoBtn').onclick = function() {
+  setData(LS_KEYS.logo, document.getElementById('siteLogoPreview').src || defaultLogo);
+  document.getElementById('siteLogoMini').src = document.getElementById('siteLogoPreview').src || defaultLogo;
+  alert('Logo saved!');
+};
+document.getElementById('resetLogoBtn').onclick = function() {
+  setData(LS_KEYS.logo, defaultLogo);
+  renderLogo();
+  alert('Logo reset to default.');
+};
 
-    // Populate admin UI
-    function loadHeroForm() {
-      const hero = getData(LS_KEYS.hero, defaultHero);
-      document.getElementById('heroTitle').value = hero.title || '';
-      document.getElementById('heroSubtitle').value = hero.subtitle || '';
-      document.getElementById('heroImage').value = hero.image || '';
-      document.getElementById('heroPrimaryText').value = hero.primaryText || '';
-      document.getElementById('heroSecondaryText').value = hero.secondaryText || '';
-      document.getElementById('heroLink').value = hero.link || '';
-    }
+/* --------- HERO MANAGEMENT --------- */
+function loadHeroForm() {
+  const hero = getData(LS_KEYS.hero, defaultHero);
+  document.getElementById('heroTitle').value = hero.title || '';
+  document.getElementById('heroSubtitle').value = hero.subtitle || '';
+  document.getElementById('heroImagePreview').src = hero.image || dataUrlPlaceholder;
+  document.getElementById('heroPrimaryText').value = hero.primaryText || '';
+  document.getElementById('heroSecondaryText').value = hero.secondaryText || '';
+  document.getElementById('heroLink').value = hero.link || '';
+}
+document.getElementById('heroImageInput').addEventListener('change', function () {
+  const file = this.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function (e) { document.getElementById('heroImagePreview').src = e.target.result; };
+  reader.readAsDataURL(file);
+});
+document.getElementById('saveHero').onclick = function() {
+  const hero = {
+    title: document.getElementById('heroTitle').value.trim(),
+    subtitle: document.getElementById('heroSubtitle').value.trim(),
+    image: document.getElementById('heroImagePreview').src || dataUrlPlaceholder,
+    primaryText: document.getElementById('heroPrimaryText').value.trim(),
+    secondaryText: document.getElementById('heroSecondaryText').value.trim(),
+    link: document.getElementById('heroLink').value.trim()
+  };
+  setData(LS_KEYS.hero, hero);
+  alert('Hero saved!');
+};
+document.getElementById('resetHero').onclick = function() {
+  setData(LS_KEYS.hero, defaultHero);
+  loadHeroForm();
+  alert('Hero reset to default.');
+};
 
-    function loadCategories() {
-      const cats = getData(LS_KEYS.categories, ['All','Laptops','Tablets','Accessories','Xbox']).filter(c => c !== 'All');
-      const list = document.getElementById('categoryList');
-      const select = document.getElementById('pCategory');
-      list.innerHTML = '';
-      select.innerHTML = '';
-      cats.forEach(c => {
-        const row = document.createElement('div');
-        row.className = 'item';
-        row.style.gridTemplateColumns = '1fr auto';
-        row.innerHTML = `
-          <div class="item-title">${c}</div>
-          <div class="actions">
-            <button class="btn danger" data-remove="${c}">Remove</button>
-          </div>
-        `;
-        list.appendChild(row);
-
-        const opt = document.createElement('option');
-        opt.value = c; opt.textContent = c;
-        select.appendChild(opt);
-      });
-
-      // Add default option if none
-      if (!cats.length) {
-        const opt = document.createElement('option');
-        opt.value = 'Uncategorized'; opt.textContent = 'Uncategorized';
-        select.appendChild(opt);
-      }
-
-      // Remove handler
-      list.querySelectorAll('[data-remove]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const name = btn.getAttribute('data-remove');
-          const current = getData(LS_KEYS.categories, ['All']).filter(c => c !== 'All');
-          const updated = current.filter(c => c !== name);
-          setData(LS_KEYS.categories, ['All', ...updated]);
-          loadCategories();
-          renderProductsList();
-        });
-      });
-    }
-
-    function renderProductsList() {
-      const products = getData(LS_KEYS.products, []);
-      const container = document.getElementById('productList');
-      container.innerHTML = '';
-      if (!products.length) {
-        container.innerHTML = '<div class="muted">No products yet. Add your first product above.</div>';
-        return;
-      }
-      products.forEach(p => {
-        const el = document.createElement('div');
-        el.className = 'item';
-        el.innerHTML = `
-          <img src="${p.image}" alt="${p.title}">
-          <div>
-            <div class="item-title">${p.title}</div>
-            <div class="muted">${p.category} • $${Number(p.price).toFixed(2)}</div>
-            <div class="tag">${p.tag || 'Featured'}</div>
-          </div>
-          <div class="actions">
-            <button class="btn" data-edit="${p.id}">Edit</button>
-            <button class="btn danger" data-delete="${p.id}">Delete</button>
-          </div>
-        `;
-        container.appendChild(el);
-      });
-
-      // Edit / Delete
-      container.querySelectorAll('[data-delete]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const id = btn.getAttribute('data-delete');
-          const products = getData(LS_KEYS.products, []);
-          setData(LS_KEYS.products, products.filter(x => x.id !== id));
-          renderProductsList();
-        });
-      });
-
-      container.querySelectorAll('[data-edit]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const id = btn.getAttribute('data-edit');
-          const p = getData(LS_KEYS.products, []).find(x => x.id === id);
-          if (!p) return;
-          document.getElementById('pTitle').value = p.title;
-          document.getElementById('pCategory').value = p.category;
-          document.getElementById('pPrice').value = p.price;
-          document.getElementById('pTag').value = p.tag || '';
-          document.getElementById('pImage').value = p.image;
-          document.getElementById('pDescription').value = p.description || '';
-          document.getElementById('createProduct').setAttribute('data-editing', id);
-          document.getElementById('createProduct').textContent = 'Save changes';
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-      });
-    }
-
-    // Actions
-    document.getElementById('saveHero').addEventListener('click', () => {
-      const hero = {
-        title: document.getElementById('heroTitle').value.trim(),
-        subtitle: document.getElementById('heroSubtitle').value.trim(),
-        image: document.getElementById('heroImage').value.trim(),
-        primaryText: document.getElementById('heroPrimaryText').value.trim(),
-        secondaryText: document.getElementById('heroSecondaryText').value.trim(),
-        link: document.getElementById('heroLink').value.trim()
-      };
-      setData(LS_KEYS.hero, hero);
-      alert('Hero saved. Check the storefront.');
-    });
-
-    document.getElementById('resetHero').addEventListener('click', () => {
-      setData(LS_KEYS.hero, defaultHero);
-      loadHeroForm();
-      alert('Hero reset to default.');
-    });
-
-    document.getElementById('addCategory').addEventListener('click', () => {
-      const name = document.getElementById('newCategoryName').value.trim();
-      if (!name) return alert('Enter a category name.');
-      const current = getData(LS_KEYS.categories, ['All']);
-      const set = new Set(current);
-      set.add('All'); // ensure presence
-      set.add(name);
-      setData(LS_KEYS.categories, Array.from(set));
-      document.getElementById('newCategoryName').value = '';
+/* --------- CATEGORY MANAGEMENT --------- */
+function loadCategories() {
+  const cats = getData(LS_KEYS.categories, ['All','Laptops','Tablets','Accessories','Xbox']).filter(c => c !== 'All');
+  const list = document.getElementById('categoryList');
+  const select = document.getElementById('pCategory');
+  list.innerHTML = '';
+  select.innerHTML = '';
+  cats.forEach(c => {
+    const row = document.createElement('div');
+    row.className = 'item';
+    row.style.gridTemplateColumns = '1fr auto';
+    row.innerHTML = `<div class="item-title">${c}</div>
+      <div class="actions">
+        <button class="btn danger" data-remove="${c}">Remove</button>
+      </div>`;
+    list.appendChild(row);
+    const opt = document.createElement('option'); opt.value = c; opt.textContent = c;
+    select.appendChild(opt);
+  });
+  // Add default option if none
+  if (!cats.length) { const opt = document.createElement('option'); opt.value = 'Uncategorized'; opt.textContent = 'Uncategorized'; select.appendChild(opt);}
+  // Remove handler
+  list.querySelectorAll('[data-remove]').forEach(btn => {
+    btn.onclick = function() {
+      const name = btn.getAttribute('data-remove');
+      const current = getData(LS_KEYS.categories, ['All']).filter(c => c !== 'All');
+      const updated = current.filter(c => c !== name);
+      setData(LS_KEYS.categories, ['All', ...updated]);
       loadCategories();
-    });
-
-    document.getElementById('createProduct').addEventListener('click', () => {
-      const editingId = document.getElementById('createProduct').getAttribute('data-editing');
-      const title = document.getElementById('pTitle').value.trim();
-      const category = document.getElementById('pCategory').value.trim();
-      const price = parseFloat(document.getElementById('pPrice').value);
-      const tag = document.getElementById('pTag').value.trim();
-      const image = document.getElementById('pImage').value.trim();
-      const description = document.getElementById('pDescription').value.trim();
-
-      if (!title || !category || !image || isNaN(price)) {
-        return alert('Please fill in title, category, image URL, and a valid price.');
-      }
-
-      const products = getData(LS_KEYS.products, []);
-      if (editingId) {
-        const idx = products.findIndex(p => p.id === editingId);
-        if (idx >= 0) {
-          products[idx] = { ...products[idx], title, category, price, tag, image, description };
-          setData(LS_KEYS.products, products);
-          document.getElementById('createProduct').removeAttribute('data-editing');
-          document.getElementById('createProduct').textContent = 'Create';
-        }
-      } else {
-        products.unshift({ id: cryptoRandomId(), title, category, price, tag, image, description });
-        setData(LS_KEYS.products, products);
-      }
-
-      clearProductForm();
       renderProductsList();
-      alert(editingId ? 'Product updated.' : 'Product created.');
-    });
+    };
+  });
+}
+document.getElementById('addCategory').onclick = function() {
+  const name = document.getElementById('newCategoryName').value.trim();
+  if (!name) return alert('Enter a category name.');
+  const current = getData(LS_KEYS.categories, ['All']);
+  const set = new Set(current); set.add('All'); set.add(name);
+  setData(LS_KEYS.categories, Array.from(set));
+  document.getElementById('newCategoryName').value = '';
+  loadCategories();
+};
 
-    document.getElementById('clearProductForm').addEventListener('click', clearProductForm);
-
-    function clearProductForm() {
-      document.getElementById('pTitle').value = '';
-      document.getElementById('pCategory').selectedIndex = 0;
-      document.getElementById('pPrice').value = '';
-      document.getElementById('pTag').value = '';
-      document.getElementById('pImage').value = '';
-      document.getElementById('pDescription').value = '';
+/* --------- PRODUCT MANAGEMENT --------- */
+document.getElementById('pImageInput').addEventListener('change', function () {
+  const file = this.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function (e) { document.getElementById('pImagePreview').src = e.target.result; };
+  reader.readAsDataURL(file);
+});
+function renderProductsList() {
+  const products = getData(LS_KEYS.products, []);
+  const container = document.getElementById('productList');
+  container.innerHTML = '';
+  if (!products.length) {
+    container.innerHTML = '<div class="muted">No products yet. Add your first product above.</div>';
+    return;
+  }
+  products.forEach(p => {
+    const el = document.createElement('div');
+    el.className = 'item';
+    el.innerHTML = `
+      <img src="${p.image ? p.image : dataUrlPlaceholder}" alt="${p.title}">
+      <div>
+        <div class="item-title">${p.title}</div>
+        <div class="muted">${p.category} • $${Number(p.price).toFixed(2)}</div>
+        <div class="tag">${p.tag || 'Featured'}</div>
+      </div>
+      <div class="actions">
+        <button class="btn" data-edit="${p.id}">Edit</button>
+        <button class="btn danger" data-delete="${p.id}">Delete</button>
+      </div>`;
+    container.appendChild(el);
+  });
+  container.querySelectorAll('[data-delete]').forEach(btn => {
+    btn.onclick = function() {
+      const id = btn.getAttribute('data-delete');
+      const products = getData(LS_KEYS.products, []);
+      setData(LS_KEYS.products, products.filter(x => x.id !== id));
+      renderProductsList();
+    };
+  });
+  container.querySelectorAll('[data-edit]').forEach(btn => {
+    btn.onclick = function() {
+      const id = btn.getAttribute('data-edit');
+      const p = getData(LS_KEYS.products, []).find(x => x.id === id); if (!p) return;
+      document.getElementById('pTitle').value = p.title;
+      document.getElementById('pCategory').value = p.category;
+      document.getElementById('pPrice').value = p.price;
+      document.getElementById('pTag').value = p.tag || '';
+      document.getElementById('pImagePreview').src = p.image || dataUrlPlaceholder;
+      document.getElementById('pDescription').value = p.description || '';
+      document.getElementById('createProduct').setAttribute('data-editing', id);
+      document.getElementById('createProduct').textContent = 'Save changes';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+  });
+}
+document.getElementById('createProduct').onclick = function() {
+  const editingId = document.getElementById('createProduct').getAttribute('data-editing');
+  const title = document.getElementById('pTitle').value.trim();
+  const category = document.getElementById('pCategory').value.trim();
+  const price = parseFloat(document.getElementById('pPrice').value);
+  const tag = document.getElementById('pTag').value.trim();
+  const image = document.getElementById('pImagePreview').src || dataUrlPlaceholder;
+  const description = document.getElementById('pDescription').value.trim();
+  if (!title || !category || !image || isNaN(price)) { alert('Please fill in title, category, image (select one), and a valid price.'); return; }
+  const products = getData(LS_KEYS.products, []);
+  if (editingId) {
+    const idx = products.findIndex(p => p.id === editingId);
+    if (idx >= 0) {
+      products[idx] = { ...products[idx], title, category, price, tag, image, description };
+      setData(LS_KEYS.products, products);
       document.getElementById('createProduct').removeAttribute('data-editing');
       document.getElementById('createProduct').textContent = 'Create';
     }
-
-    // Boot
-    (function init() {
-      loadHeroForm();
-      loadCategories();
-      renderProductsList();
-    })();
-  </script>
+  } else {
+    products.unshift({ id: cryptoRandomId(), title, category, price, tag, image, description });
+    setData(LS_KEYS.products, products);
+  }
+  clearProductForm(); renderProductsList();
+  alert(editingId ? 'Product updated.' : 'Product created.');
+};
+document.getElementById('clearProductForm').onclick = clearProductForm;
+function clearProductForm() {
+  document.getElementById('pTitle').value = '';
+  document.getElementById('pCategory').selectedIndex = 0;
+  document.getElementById('pPrice').value = '';
+  document.getElementById('pTag').value = '';
+  document.getElementById('pImagePreview').src = dataUrlPlaceholder;
+  document.getElementById('pImageInput').value = '';
+  document.getElementById('pDescription').value = '';
+  document.getElementById('createProduct').removeAttribute('data-editing');
+  document.getElementById('createProduct').textContent = 'Create';
+}
+/* --------- INIT --------- */
+(function init() {
+  renderLogo();
+  loadHeroForm();
+  loadCategories();
+  renderProductsList();
+  document.getElementById('siteLogoMini').src = getData(LS_KEYS.logo, defaultLogo);
+  document.getElementById('siteLogoPreview').src = getData(LS_KEYS.logo, defaultLogo);
+  document.getElementById('heroImagePreview').src = getData(LS_KEYS.hero, defaultHero).image || dataUrlPlaceholder;
+  document.getElementById('pImagePreview').src = dataUrlPlaceholder;
+})();
+</script>
 </body>
 </html>
